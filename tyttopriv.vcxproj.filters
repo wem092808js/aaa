@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="CPPs">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Headers">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="DllMain.cpp">
+      <Filter>CPPs</Filter>
+    </ClCompile>
+    <ClCompile Include="Controls.cpp">
+      <Filter>CPPs</Filter>
+    </ClCompile>
+    <ClCompile Include="CRC32.cpp">
+      <Filter>CPPs</Filter>
+    </ClCompile>
+    <ClCompile Include="Gui.cpp">
+      <Filter>CPPs</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>CPPs</Filter>
+    </ClCompile>
+    <ClCompile Include="Hooks.cpp">
+      <Filter>CPPs</Filter>
+    </ClCompile>
+    <ClCompile Include="Hacks.cpp">
+      <Filter>CPPs</Filter>
+    </ClCompile>
+    <ClCompile Include="Interfaces.cpp">
+      <Filter>CPPs</Filter>
+    </ClCompile>
+    <ClCompile Include="MathFunctions.cpp">
+      <Filter>CPPs</Filter>
+    </ClCompile>
+    <ClCompile Include="NetVars.cpp">
+      <Filter>CPPs</Filter>
+    </ClCompile>
+    <ClCompile Include="offsets.cpp">
+      <Filter>CPPs</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderManager.cpp">
+      <Filter>CPPs</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxml2.cpp">
+      <Filter>CPPs</Filter>
+    </ClCompile>
+    <ClCompile Include="UTIL_Functions.cpp">
+      <Filter>CPPs</Filter>
+    </ClCompile>
+    <ClCompile Include="Utilities.cpp">
+      <Filter>CPPs</Filter>
+    </ClCompile>
+    <ClCompile Include="Visuals.cpp">
+      <Filter>CPPs</Filter>
+    </ClCompile>
+    <ClCompile Include="Window.cpp">
+      <Filter>CPPs</Filter>
+    </ClCompile>
+    <ClCompile Include="Autowall.cpp">
+      <Filter>CPPs</Filter>
+    </ClCompile>
+    <ClCompile Include="Chams.cpp">
+      <Filter>CPPs</Filter>
+    </ClCompile>
+    <ClCompile Include="ESP.cpp">
+      <Filter>CPPs</Filter>
+    </ClCompile>
+    <ClCompile Include="LegitBot.cpp">
+      <Filter>CPPs</Filter>
+    </ClCompile>
+    <ClCompile Include="MiscHacks.cpp">
+      <Filter>CPPs</Filter>
+    </ClCompile>
+    <ClCompile Include="RageBot.cpp">
+      <Filter>CPPs</Filter>
+    </ClCompile>
+    <ClCompile Include="nospread.cpp">
+      <Filter>CPPs</Filter>
+    </ClCompile>
+    <ClCompile Include="checksum_md5.cpp">
+      <Filter>CPPs</Filter>
+    </ClCompile>
+    <ClCompile Include="input.cpp">
+      <Filter>CPPs</Filter>
+    </ClCompile>
+    <ClCompile Include="ChecksumCRC.cpp">
+      <Filter>CPPs</Filter>
+    </ClCompile>
+    <ClCompile Include="Resolver.cpp">
+      <Filter>CPPs</Filter>
+    </ClCompile>
+    <ClCompile Include="AntiAntiAim.cpp">
+      <Filter>CPPs</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Header.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Gui.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Controls.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderManager.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2D.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="NetVars.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Interfaces.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineClient.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="ClientRecvProps.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="offsets.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="bspflags.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="MathFunctions.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="UTIL Functions.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseClient.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="MiscClasses.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Entities.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Surface.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Materials.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="CRC32.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="tinyxml2.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Hooks.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Hacks.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Autowall.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Chams.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="ESP.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="LegitBot.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="MiscDefinitions.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="MiscHacks.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="RageBot.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Visuals.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="CommonIncludes.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="nospread.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="checksum_md5.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="AntiLeak.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="xor.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="GlowManager.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="input.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="ChecksumCRC.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="viewsetup.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Resolver.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="AntiAntiAim.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

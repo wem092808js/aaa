@@ -568,6 +568,9 @@ void CVisualTab::Setup()
 	OtherNoHands.AddItem("Rainbow");
 	VisualMiscGroup.PlaceLabledControl("Hands", this, &OtherNoHands);
 
+	OtherNoVisualRecoil.SetFileId("otr_visrecoil");
+	VisualMiscGroup.PlaceLabledControl("No Visual Recoil", this, &OtherNoVisualRecoil);
+
 	OtherViewmodelFOV.SetFileId("otr_viewfov");
 	OtherViewmodelFOV.SetBoundaries(0.f, 180.f);
 	OtherViewmodelFOV.SetValue(0.f);
@@ -624,9 +627,6 @@ void CMiscTab::Setup()
 
     OtherAirStuck.SetFileId("otr_astuck");
 	OtherGroup.PlaceLabledControl("Air Stuck", this, &OtherAirStuck);
-
-	OtherNoVisualRecoil.SetFileId("otr_visrecoil");
-	OtherGroup.PlaceLabledControl("No Visual Recoil", this, &OtherNoVisualRecoil);
 
 	OtherFakeLag.SetFileId("otr_fakelag");
 	OtherGroup.PlaceLabledControl("FakeLag", this, &OtherFakeLag);

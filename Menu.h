@@ -148,7 +148,6 @@ public:
 	// Recoil Settings
 	CGroupBox RecoilGroup;
 	CCheckBox RecoilControlSystem;
-	CCheckBox OtherNoVisualRecoil;
 
 	// Other Settings
 	CGroupBox OtherGroup;
@@ -208,6 +207,7 @@ public:
 	CCheckBox OtherHitmarker;
 	CCheckBox OtherNoSmoke;
 	CComboBox OtherNoHands;
+	CCheckBox OtherNoVisualRecoil;
 	CSlider OtherViewmodelFOV;
 	CSlider OtherFOV;
 	CComboBox OtherCrosshair;

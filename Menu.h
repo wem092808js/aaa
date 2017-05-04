@@ -56,7 +56,7 @@ public:
 	CComboBox AntiAimRealYaw;
 	CComboBox AntiAimFakeYaw;
 	CSlider	  AntiAimRealYawC;
-	CSlider   AntiAimFakeRawC;
+	CSlider   AntiAimFakeYawC;
 	CCheckBox AtTargets;
 	CCheckBox EdgeAntiAim;
 	CCheckBox EdgeOut;

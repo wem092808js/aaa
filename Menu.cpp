@@ -9,24 +9,6 @@
 
 MainWindow Menu::Window;
 
-void ChangeName() {
-	for (size_t i = 5; i < 5; i++);
-	ConVar* name = Interfaces::CVar->FindVar("name");
-	*(int*)((DWORD)&name->fnChangeCallback + 0xC) = NULL;
-	if (name)
-	{
-		name->SetValue("\r");
-	}
-}
-
-
-void UnLoadCallbk()
-{
-	if (Interfaces::Engine->IsInGame() && Interfaces::Engine->IsConnected()) {
-		CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)ChangeName, NULL, NULL, NULL);
-	}
-}
-
 void SaveLegitCallbk()
 {
 	switch (Menu::Window.ColorsTab.ConfigBox.GetIndex())
@@ -37,23 +19,11 @@ void SaveLegitCallbk()
 	case 1:
 		GUI.SaveWindowState(&Menu::Window, "legit2.cfg");
 		break;
-	case 2:
-		GUI.SaveWindowState(&Menu::Window, "legit3.cfg");
-		break;
 	case 3:
 		GUI.SaveWindowState(&Menu::Window, "rage1.cfg");
 		break;
 	case 4:
 		GUI.SaveWindowState(&Menu::Window, "rage2.cfg");
-		break;
-	case 5:
-		GUI.SaveWindowState(&Menu::Window, "rage3.cfg");
-		break;
-	case 6:
-		GUI.SaveWindowState(&Menu::Window, "faceit1.cfg");
-		break;
-	case 7:
-		GUI.SaveWindowState(&Menu::Window, "faceit2.cfg");
 		break;
 	}
 }
@@ -68,23 +38,11 @@ void LoadLegitCallbk()
 	case 1:
 		GUI.LoadWindowState(&Menu::Window, "legit2.cfg");
 		break;
-	case 2:
-		GUI.LoadWindowState(&Menu::Window, "legit3.cfg");
-		break;
 	case 3:
 		GUI.LoadWindowState(&Menu::Window, "rage1.cfg");
 		break;
 	case 4:
 		GUI.LoadWindowState(&Menu::Window, "rage2.cfg");
-		break;
-	case 5:
-		GUI.LoadWindowState(&Menu::Window, "rage3.cfg");
-		break;
-	case 6:
-		GUI.LoadWindowState(&Menu::Window, "faceit1.cfg");
-		break;
-	case 7:
-		GUI.LoadWindowState(&Menu::Window, "faceit2.cfg");
 		break;
 	}
 }
@@ -137,12 +95,6 @@ void MainWindow::Setup()
 
 
 #pragma region Bottom Buttons
-
-
-	UnloadButton.SetText("Name Exploit");
-	UnloadButton.SetCallback(UnLoadCallbk);
-	UnloadButton.SetPosition(16, Client.bottom - 50);
-	
 	SaveButton.SetText("Save");
 	SaveButton.SetCallback(SaveLegitCallbk);
 	SaveButton.SetPosition(400, Client.bottom - 560);
@@ -154,7 +106,7 @@ void MainWindow::Setup()
 	
 	PanicButton.SetText("Panic");
 	PanicButton.SetCallback(PanicCallbk);
-	PanicButton.SetPosition(203, Client.bottom - 50);
+	PanicButton.SetPosition(580, Client.bottom - 50);
 
 	MiscTab.RegisterControl(&UnloadButton);
 
@@ -167,6 +119,8 @@ void MainWindow::Setup()
 	RageBotTab.RegisterControl(&PanicButton);
 	VisualsTab.RegisterControl(&PanicButton);
 	MiscTab.RegisterControl(&PanicButton);
+	ColorsTab.RegisterControl(&PanicButton);
+	SkinchangerTab.RegisterControl(&PanicButton);
 
 	// Save and Load
 
@@ -318,12 +272,12 @@ void CRageBotTab::Setup()
 	AntiAimGroup.PlaceLabledControl("Fake Yaw", this, &AntiAimFakeYaw);
 
 	AntiAimRealYawC.SetFileId("aa_ryc");
-	AntiAimRealYawC.SetBoundaries(-180.f, 180.f);
+	AntiAimRealYawC.SetBoundaries(0.f, 360.f);
 	AntiAimRealYawC.SetValue(0.f);
 	AntiAimGroup.PlaceLabledControl("Real Yaw Angle", this, &AntiAimRealYawC);
 
 	AntiAimFakeYawC.SetFileId("aa_fyc");
-	AntiAimFakeYawC.SetBoundaries(-180.f, 180.f);
+	AntiAimFakeYawC.SetBoundaries(0.f, 360.f);
 	AntiAimFakeYawC.SetValue(0.f);
 	AntiAimGroup.PlaceLabledControl("Fake Yaw Angle", this, &AntiAimFakeYawC);
 
@@ -334,7 +288,7 @@ void CRageBotTab::Setup()
 	AntiAimGroup.PlaceLabledControl("At Targets", this, &AtTargets);
 
 	AccuracySpread.SetFileId("acc_nospread");
-	AntiAimGroup.PlaceLabledControl("No Spread HvH", this, &AccuracySpread);
+	AntiAimGroup.PlaceLabledControl("Nospread", this, &AccuracySpread);
 
 	AccuracyResolver.SetFileId("acc_aaa");
 	AccuracyResolver.AddItem("Off");
@@ -666,10 +620,6 @@ void CMiscTab::Setup()
 	ClanTagAnim.AddItem("Flash");
 	ClanTagAnim.AddItem("Slide");
 	OtherGroup.PlaceLabledControl("Clan Tag Animation", this, &ClanTagAnim);
-
-	Othernamesteal.SetFileId("otr_namesteal");
-	OtherGroup.PlaceLabledControl("Name Steal", this, &Othernamesteal);
-
 #pragma endregion Setting up the Other controls
 
     OtherAirStuck.SetFileId("otr_astuck");
@@ -677,9 +627,6 @@ void CMiscTab::Setup()
 
 	OtherNoVisualRecoil.SetFileId("otr_visrecoil");
 	OtherGroup.PlaceLabledControl("No Visual Recoil", this, &OtherNoVisualRecoil);
-
-	OtherEventSpam.SetFileId("otr_eventspam");
-	OtherGroup.PlaceLabledControl("Event Spam", this, &OtherEventSpam);
 
 	OtherFakeLag.SetFileId("otr_fakelag");
 	OtherGroup.PlaceLabledControl("FakeLag", this, &OtherFakeLag);
@@ -796,12 +743,8 @@ void CColorsTab::Setup()
 	ConfigBox.SetFileId("cfg_box");
 	ConfigBox.AddItem("Legit 1");
 	ConfigBox.AddItem("Legit 2");
-	ConfigBox.AddItem("Legit 3");
 	ConfigBox.AddItem("Rage 1");
 	ConfigBox.AddItem("Rage 2");
-	ConfigBox.AddItem("Rage 3");
-	ConfigBox.AddItem("FaceIT 1");
-	ConfigBox.AddItem("FaceIT 2");
 	ConfigGroup.PlaceLabledControl("Config :", this, &ConfigBox);
 
 #pragma endregion Visual Colors
@@ -1251,7 +1194,7 @@ void CSkinchangerTab::Setup()
 
 #pragma region MPs
 	MPGroup.SetPosition(16, 475);
-	MPGroup.SetText("MPs");
+	MPGroup.SetText("SMGs");
 	MPGroup.SetSize(376, 165);
 	RegisterControl(&MPGroup);
 

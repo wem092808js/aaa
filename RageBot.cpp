@@ -109,16 +109,19 @@ void CRageBot::NormalizeVector(Vector& vec)
 
 void CRageBot::ClampAngles(Vector& vecAngles)
 {
-	if (vecAngles[0] > 89.f)
-		vecAngles[0] = 89.f;
-	if (vecAngles[0] < -89.f)
-		vecAngles[0] = -89.f;
-	if (vecAngles[1] > 180.f)
-		vecAngles[1] = 180.f;
-	if (vecAngles[1] < -180.f)
-		vecAngles[1] = -180.f;
+	if (Menu::Window.MiscTab.OtherSafeMode.GetState())
+	{
+		if (vecAngles[0] > 89.f)
+			vecAngles[0] = 89.f;
+		if (vecAngles[0] < -89.f)
+			vecAngles[0] = -89.f;
+		if (vecAngles[1] > 180.f)
+			vecAngles[1] = 180.f;
+		if (vecAngles[1] < -180.f)
+			vecAngles[1] = -180.f;
 
-	vecAngles[2] = 0.f;
+		vecAngles[2] = 0.f;
+	}
 }
 
 bool isAbleToShot(IClientEntity* pLocal, CBaseCombatWeapon* pWeapon)
@@ -248,7 +251,6 @@ void CRageBot::DoAimbot(CUserCmd *pCmd, bool& bSendPacket)
 		Vector AimPoint = GetHitboxPosition(pTarget, HitBox);
 
 		float Spread = pWeapon->GetAccuracyPenalty();
-		//float HitChance = 75.f + (Menu::Window.RageBotTab.HitChanceAmount.GetValue() / 4);
 		if ((Menu::Window.RageBotTab.AccuracyHitchance.GetValue() * 1.5 <= hitchance(pLocal, pWeapon)) || Menu::Window.RageBotTab.AccuracyHitchance.GetValue() == 0 || *pWeapon->m_AttributeManager()->m_Item()->ItemDefinitionIndex() == 64)
 		{
 			if (AimAtPoint(pLocal, AimPoint, pCmd))
@@ -268,8 +270,6 @@ void CRageBot::DoAimbot(CUserCmd *pCmd, bool& bSendPacket)
 						}
 					}
 				}
-				if (!Menu::Window.RageBotTab.AccuracySpreadLimit.GetState() || Spread <= (Menu::Window.RageBotTab.AccuracyMinimumSpread.GetValue() / 100.f))
-					//if (!Menu::Window.RageBotTab.HitChance.GetState() || (1.0f - pWeapon->GetAccuracyPenalty()) * 100.f >= HitChance)
 				{
 					if (Menu::Window.RageBotTab.AimbotAutoFire.GetState() && !(pCmd->buttons & IN_ATTACK))
 					{
@@ -303,8 +303,6 @@ void CRageBot::DoAimbot(CUserCmd *pCmd, bool& bSendPacket)
 
 			WasFiring = pCmd->buttons & IN_ATTACK ? true : false;
 		}
-		if (!bReady2Silent && !(pCmd->buttons & IN_ATTACK))
-			bSendPacket = true;
 	}
 }
 
@@ -1089,8 +1087,8 @@ void CRageBot::DoAntiAim(CUserCmd *pCmd, bool& bSendPacket)
 		if (pCmd->buttons & IN_ATTACK)
 			return;
 	
-	if (hackManager.pLocal()->GetMoveType == 9 || hackManager.pLocal()->GetMoveType == 8)
-		return;
+	//if (hackManager.pLocal()->GetMoveType == 9 || hackManager.pLocal()->GetMoveType == 8)
+	//	return;
 	
 	// Anti-Aim Pitch
 	switch (Menu::Window.RageBotTab.AntiAimPitch.GetIndex())

@@ -86,7 +86,7 @@ void CWindow::Toggle()
 	m_bIsOpen = !m_bIsOpen;
 	mouselock->SetValue(!m_bIsOpen);
 	Interfaces::InputSys->EnableInput(!m_bIsOpen);
-	if (m_bIsOpen) Interfaces::InputSys->ResetInputState();*/
+	if (m_bIsOpen) Interfaces::InputSys->ResetInputState();*/ // this shit causes crash<<
 }
 
 CControl* CWindow::GetFocus()

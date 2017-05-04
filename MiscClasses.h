@@ -488,27 +488,6 @@ __forceinline VectorAligned& VectorAligned::operator=(const Vector &_v) {
 
 struct Ray_t
 {
-	//__declspec(align(16)) Vector  m_Start;
-	//__declspec(align(16)) Vector  m_Delta;
-	//__declspec(align(16)) Vector  m_StartOffset;
-	//__declspec(align(16)) Vector  m_Extents;
-	////without your matrix3x4
-	//const matrix3x4	*m_pWorldAxisTransform;
-
-	//bool	m_IsRay;
-	//bool	m_IsSwept;
-
-	//void Init(Vector& vecStart, Vector& vecEnd)
-	//{
-	//	m_Delta = vecEnd - vecStart;
-	//	m_IsSwept = (m_Delta.LengthSqr() != 0);
-	//	m_Extents.x = m_Extents.y = m_Extents.z = 0.0f;
-	//	m_IsRay = true;
-	//	m_StartOffset.x = m_StartOffset.y = m_StartOffset.z = 0.0f;
-	//	m_Start = vecStart;
-	//}
-
-
 	//Wrong structure???
 	VectorAligned		m_Start;					// starting point, centered within the extents
 	VectorAligned		m_Delta;					// direction + length of the ray

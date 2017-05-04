@@ -286,12 +286,12 @@ bool CGUI::DrawWindow(CWindow* window)
 	// Main Window
 	Render::Outline(window->m_x, window->m_y, window->m_iWidth, window->m_iHeight, Color(1, 1, 1, 255));
 	Render::GradientV(window->m_x + 2, window->m_y + 2, window->m_iWidth - 4, 26, Color(1, 1, 1, 255), Color(1, 1, 1, 255));
-	Render::GradientV(window->m_x + 1, window->m_y + 1 , window->m_iWidth - 1, window->m_iHeight - 1 - 1, Color(20, 20, 20, 255), Color(10, 10, 10, 255));
-	Render::Outline(window->m_x + 0, window->m_y + 0, window->m_iWidth - 0, window->m_iHeight - 0, Color(1, 1, 1, 255));
-    Render::Text(window->m_x + 25, window->m_y + 6, Color(100, 100, 100, 255), Render::Fonts::TITLE, window->Title.c_str());
+	Render::GradientV(window->m_x + 1, window->m_y + 1 , window->m_iWidth - 1, window->m_iHeight - 1 - 1, Color(32, 159, 250, 255), Color(32, 159, 250, 255));
+	Render::Outline(window->m_x + 0, window->m_y + 0, window->m_iWidth - 0, window->m_iHeight - 0, Color(255, 255, 255, 255));
+    Render::Text(window->m_x + 25, window->m_y + 6, Color(255, 255, 255, 255), Render::Fonts::TITLE, window->Title.c_str());
 
 	//Inner
-	Render::Outline(window->m_x + 7, window->m_y + 1 + 26, window->m_iWidth - 4 - 10, window->m_iHeight - 2 - 6 - 26, Color(1, 1, 1, 255));
+	//Render::Outline(window->m_x + 7, window->m_y + 1 + 26, window->m_iWidth - 4 - 10, window->m_iHeight - 2 - 6 - 26, Color(0, 60, 255, 255));
 	Render::GradientV(window->m_x + 8, window->m_y + 1 + 27, window->m_iWidth - 4 - 12, window->m_iHeight - 2 - 8 - 26, Color(1, 1, 1, 255), Color(5, 5, 5, 255));
 
 	//Tab
@@ -306,18 +306,14 @@ bool CGUI::DrawWindow(CWindow* window)
 			CTab *tab = window->Tabs[i];
 			if (window->SelectedTab == tab)
 			{
-				//RECT TextSize = Render::GetTextSize(Render::Fonts::MenuBold, tab->Title.c_str());
-				Render::GradientV(window->m_x + 8 + (i*TabSize), window->m_y + 3 + 28, TabSize, 30, Color(20, 20, 20, 255), Color(30, 30, 30, 255));
-				//Render::Text(TabArea.left + (TabSize / 2) - (TextSize.right / 2), TabArea.top + 8, Color(20, 249, 20, 255), Render::Fonts::MenuBold, tab->Title.c_str());
+				Render::GradientV(window->m_x + 8 + (i*TabSize), window->m_y + 3 + 28, TabSize, 30, Color(32, 159, 250, 255), Color(30, 100, 255, 255));
 			}
 			else if (IsMouseInRegion(TabArea))
 			{
-			//	RECT TextSize = Render::GetTextSize(Render::Fonts::MenuBold, tab->Title.c_str());
 				Render::GradientV(window->m_x + 8 + (i*TabSize), window->m_y + 1 + 27, TabSize, 29, Color(1, 1, 1, 255), Color(1, 1, 1, 255));
-			//	Render::Text(TabArea.left + (TabSize / 2) - (TextSize.right / 2), TabArea.top + 8, Color(20, 249, 20, 255), Render::Fonts::MenuBold, tab->Title.c_str());
 			}
 			RECT TextSize = Render::GetTextSize(Render::Fonts::Tabs, tab->Title.c_str());
-			Render::Text(TabArea.left + (TabSize / 2) - (TextSize.right / 2), TabArea.top + 8, Color(100, 100, 100, 255), Render::Fonts::Tabs, tab->Title.c_str());
+			Render::Text(TabArea.left + (TabSize / 2) - (TextSize.right / 2), TabArea.top + 8, Color(255, 255, 255, 255), Render::Fonts::Tabs, tab->Title.c_str());
 		}
 	}
 

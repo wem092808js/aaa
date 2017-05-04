@@ -159,12 +159,7 @@ public:
 	CComboBox Stealer;
 	CGroupBox OtherSpammers;
 	CComboBox OtherChatSpam;
-	CCheckBox OtherEventSpam;
 	CTextField2 OtherChatText;
-	CCheckBox OtherAimware;
-	CCheckBox OtherInterwebz;
-	CCheckBox Othernamesteal;
-	CCheckBox OtherTeleportHack;
 	CSlider OtherFakeLag;
 	CComboBox OtherFakeLagWhen;
 	CKeyBind OtherCircle;

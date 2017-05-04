@@ -3,6 +3,7 @@
 #include "Chams.h"
 #include "Menu.h"
 #include <thread>
+#include "Materials.h"
 #include "Utilities.h"
 #include "Resolver.h"
 #include "AntiAntiAim.h"
@@ -43,7 +44,7 @@ void __fastcall Hooked_DrawModelExecute(void* thisptr, int edx, void* ctx, void*
 //bool __fastcall CreateMoveClient_Hooked(void* self, int edx, float frametime, CUserCmd* pCmd);
 bool __stdcall CreateMoveClient_Hooked(float frametime, CUserCmd* pCmd);
 void __stdcall Hooked_FrameStageNotify(ClientFrameStage_t curStage);
-bool __fastcall Hooked_FireEventClientSide(PVOID ECX, PVOID EDX, IGameEvent *Event);
+//bool __fastcall Hooked_FireEventClientSide(PVOID ECX, PVOID EDX, IGameEvent *Event);
 void __fastcall PaintTraverse_Hooked(PVOID pPanels, int edx, unsigned int vguiPanel, bool forceRepaint, bool allowForce);
 void __fastcall Hooked_OverrideView(void* ecx, void* edx, CViewSetup* pSetup);
 float __stdcall GGetViewModelFOV();
@@ -60,6 +61,7 @@ namespace Hooks
 	Utilities::Memory::VMTManager VMTPrediction; // InPrediction for no vis recoil
 	Utilities::Memory::VMTManager VMTPlaySound; // Autoaccept 
 	Utilities::Memory::VMTManager VMTRenderView;
+	Utilities::Memory::VMTManager VMTEventManager; // InPrediction for no vis recoil
 };
 
 // Initialise all our hooks
@@ -68,24 +70,22 @@ void Hooks::Initialise()
 	// Panel hooks for drawing to the screen via surface functions
 	VMTPanel.Initialise((DWORD*)Interfaces::Panels);
 	oPaintTraverse = (PaintTraverse_)VMTPanel.HookMethod((DWORD)&PaintTraverse_Hooked, Offsets::VMT::Panel_PaintTraverse);
-	//Utilities::Log("Paint Traverse Hooked");
 
-	// No Visual Recoi	l
+	// No Visual Recoil
 	VMTPrediction.Initialise((DWORD*)Interfaces::Prediction);
 	VMTPrediction.HookMethod((DWORD)&Hooked_InPrediction, 14);
-	//Utilities::Log("InPrediction Hooked");
 
 	// Chams
 	VMTModelRender.Initialise((DWORD*)Interfaces::ModelRender);
 	oDrawModelExecute = (DrawModelEx_)VMTModelRender.HookMethod((DWORD)&Hooked_DrawModelExecute, Offsets::VMT::ModelRender_DrawModelExecute);
-	//Utilities::Log("DrawModelExecute Hooked");
 
 	// Setup ClientMode Hooks
 	VMTClientMode.Initialise((DWORD*)Interfaces::ClientMode);
 	VMTClientMode.HookMethod((DWORD)CreateMoveClient_Hooked, 24);
 
-//	oOverrideView = (OverrideViewFn)VMTClientMode.HookMethod((DWORD)&Hooked_OverrideView, 18);
-//	VMTClientMode.HookMethod((DWORD)&GGetViewModelFOV, 35);
+	// viewmodel shit
+	oOverrideView = (OverrideViewFn)VMTClientMode.HookMethod((DWORD)&Hooked_OverrideView, 18);
+	VMTClientMode.HookMethod((DWORD)&GGetViewModelFOV, 35);
 
 	// Setup client hooks
 	VMTClient.Initialise((DWORD*)Interfaces::Client);
@@ -638,102 +638,6 @@ void Hooks::FakeLagOnGround()
 		iFakeLag++;
 	}
 }
-bool __fastcall Hooked_FireEventClientSide(PVOID ECX, PVOID EDX, IGameEvent *Event) {
-	if (Menu::Window.MiscTab.OtherEventSpam.GetState()) {
-		if (strcmp(Event->GetName(), "round_end") == 0) {
-			RoundInfo = true;
-			Delay = GetTickCount();
-		}
-		else if ((strcmp(Event->GetName(), "game_newmap") == 0) || (strcmp(Event->GetName(), "game_start") == 0) || (strcmp(Event->GetName(), "game_end") == 0)) {
-			Kills = 0;
-			Kills2 = 0;
-		}
-		else if (strcmp(Event->GetName(), "round_start") == 0) {
-			char Buffer[128];
-			sprintf(Buffer, "say [tytto.priv]: gl :)");
-			Interfaces::Engine->ClientCmd(Buffer);
-		}
-		else if (strcmp(Event->GetName(), "player_connect") == 0) {
-			int PlayerID = Interfaces::Engine->GetPlayerForUserID(Event->GetInt("userid"));
-
-			player_info_t PlayerInfo;
-			if (Interfaces::Engine->GetPlayerInfo(PlayerID, &PlayerInfo)) {
-				char Buffer[128];
-				sprintf(Buffer, "say [tytto.priv] %s just connected", PlayerInfo.name);
-				Interfaces::Engine->ClientCmd(Buffer);
-			}
-		}
-		else if ((strcmp(Event->GetName(), "player_death") == 0) || (strcmp(Event->GetName(), "entity_killed") == 0)) {
-			int PlayerID = Interfaces::Engine->GetPlayerForUserID(Event->GetInt("userid"));
-			int AttackerID = Interfaces::Engine->GetPlayerForUserID(Event->GetInt("attacker"));
-
-			player_info_t PlayerInfo;
-			player_info_t AttackerInfo;
-
-			if (Interfaces::Engine->GetPlayerInfo(PlayerID, &PlayerInfo) &&
-				Interfaces::Engine->GetPlayerInfo(AttackerID, &AttackerInfo)) {
-
-				if (PlayerID == Interfaces::Engine->GetLocalPlayer())
-					Kills = 0;
-
-				if (PlayerID != Interfaces::Engine->GetLocalPlayer() && AttackerID == Interfaces::Engine->GetLocalPlayer()) {
-					Kills++;
-					Kills2++;
-
-					char Buffer[128];
-
-					switch (Kills) {
-					case 1: sprintf(Buffer, "say [tytto.priv] First kill! %s just got owned [KS: 1]", PlayerInfo.name); break;
-					case 2:	sprintf(Buffer, "say [tytto.priv] Double kill! %s just got owned [KS: 2]", PlayerInfo.name); break;
-					case 3:	sprintf(Buffer, "say [tytto.priv] Multi kill! %s just got owned [KS: 3]", PlayerInfo.name); break;
-					case 4:	sprintf(Buffer, "say [tytto.priv] Ultra kill! %s just got owned [KS: 4]", PlayerInfo.name); break;
-					case 5:	sprintf(Buffer, "say [tytto.priv] Fantastic! %s just got owned [KS: 5]", PlayerInfo.name); break;
-					case 6:	sprintf(Buffer, "say [tytto.priv] Unbelievable! %s just got owned [KS: 6]", PlayerInfo.name); break;
-					case 7:	sprintf(Buffer, "say [tytto.priv] Unbelievable++ %s just got owned [KS: 7]", PlayerInfo.name); break;
-					case 9: sprintf(Buffer, "say [tytto.priv] KILLING SPREE! %s just got owned [KS: 9]", PlayerInfo.name); break;
-					case 15: sprintf(Buffer, "say [tytto.priv] RAMPAGE! %s just got owned [KS: 15]", PlayerInfo.name); break;
-					case 21: sprintf(Buffer, "say [tytto.priv] DOMINATING! %s just got owned [KS: 21]", PlayerInfo.name); break;
-					case 26: sprintf(Buffer, "say [tytto.priv] UNSTOPPABLE! %s just got owned [KS: 26]", PlayerInfo.name); break;
-					case 37: sprintf(Buffer, "say [tytto.priv] GODLIKE! %s just got owned [KS: 37]", PlayerInfo.name); break;
-					case 40: sprintf(Buffer, "say [tytto.priv] BEYOND GODLIKE! %s just got owned [KS: 40]", PlayerInfo.name); break;
-					default: sprintf(Buffer, "say [tytto.priv] %s just got owned [KS: %i]", PlayerInfo.name, Kills); break;
-					}
-
-					Interfaces::Engine->ClientCmd(Buffer);
-				}
-			}
-		}
-		else if (strcmp(Event->GetName(), "player_hurt") == 0) {
-			int PlayerID = Interfaces::Engine->GetPlayerForUserID(Event->GetInt("userid"));
-			int AttackerID = Interfaces::Engine->GetPlayerForUserID(Event->GetInt("attacker"));
-
-			player_info_t PlayerInfo;
-			player_info_t AttackerInfo;
-
-			if (Interfaces::Engine->GetPlayerInfo(PlayerID, &PlayerInfo) &&
-				Interfaces::Engine->GetPlayerInfo(AttackerID, &AttackerInfo)) {
-
-				if (AttackerID == Interfaces::Engine->GetLocalPlayer()) {
-					return oFireEventClientSide(ECX, Event);
-				}
-
-				char Buffer[128];
-				sprintf(Buffer, "say %s just hurt %s", AttackerInfo.name, PlayerInfo.name);
-				Interfaces::Engine->ClientCmd(Buffer);
-			}
-		}
-		else if (strcmp(Event->GetName(), "player_disconnect") == 0) {
-			int PlayerID = Interfaces::Engine->GetPlayerForUserID(Event->GetInt("userid"));
-			player_info_t PlayerInfo;
-			if (Interfaces::Engine->GetPlayerInfo(PlayerID, &PlayerInfo)) {
-				char Buffer[128];
-				sprintf(Buffer, "say [tytto.priv] %s just ragequit", PlayerInfo.name);
-				Interfaces::Engine->ClientCmd(Buffer);
-			}
-		}
-	}
-	return oFireEventClientSide(ECX, Event);
-}
 Vector LastAngleAA;
 // Hooked FrameStageNotify for removing visual recoil
 void  __stdcall Hooked_FrameStageNotify(ClientFrameStage_t curStage)
@@ -811,10 +715,9 @@ void  __stdcall Hooked_FrameStageNotify(ClientFrameStage_t curStage)
 			kek = false;
 		}
 	}
-if (Interfaces::Engine->IsConnected() && Interfaces::Engine->IsInGame() && curStage == FRAME_NET_UPDATE_POSTDATAUPDATE_START)
-{
-	IClientEntity *pLocal = Interfaces::EntList->GetClientEntity(Interfaces::Engine->GetLocalPlayer());
+	if (curStage == FRAME_NET_UPDATE_POSTDATAUPDATE_START) {
 		//Utilities::Log("APPLY SKIN APPLY SKIN");
+		IClientEntity *pLocal = Interfaces::EntList->GetClientEntity(Interfaces::Engine->GetLocalPlayer());
 		int iBayonet = Interfaces::ModelInfo->GetModelIndex("models/weapons/v_knife_bayonet.mdl");
 		int iButterfly = Interfaces::ModelInfo->GetModelIndex("models/weapons/v_knife_butterfly.mdl");
 		int iFlip = Interfaces::ModelInfo->GetModelIndex("models/weapons/v_knife_flip.mdl");

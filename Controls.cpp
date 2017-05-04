@@ -79,18 +79,16 @@ void CCheckBox::Draw(bool hover)
 	{
 		if (Checked)
 		{
-			Render::GradientV(a.x + 2, a.y + 2, 9, 9, Color(20, 150, 20, 255), Color(20, 20, 20, 255));
+			Render::GradientV(a.x + 2, a.y + 2, 9, 9, Color(37, 137, 255, 255), Color(0, 83, 148, 255));
 		}
 		else
 		{
 			Render::GradientV(a.x + 2, a.y + 2, 9, 9, Color(30, 30, 30, 200), Color(40, 40, 40, 255));
 		}
-		Render::GradientV(a.x + 2, a.y + 2, 9, 9, Color(0, 150, 0, 80), Color(20, 20, 20, 80));
 	}
 	else if (Checked)
 	{
-		Render::GradientV(a.x + 2, a.y + 2, 9, 9, Color(20, 150, 20, 255), Color(20, 20, 20, 255));
-		Render::GradientV(a.x + 2, a.y + 2, 9, 9, Color(0, 150, 0, 80), Color(20, 20, 20, 80));
+		Render::GradientV(a.x + 2, a.y + 2, 9, 9, Color(37, 137, 255, 255), Color(0, 83, 148, 255));
 	}
 }
 
@@ -113,7 +111,7 @@ CLabel::CLabel()
 void CLabel::Draw(bool hover)
 {
 	POINT a = GetAbsolutePos();
-	Render::Text(a.x, a.y, Color(100, 100, 100, 255), Render::Fonts::MenuBold, Text.c_str());
+	Render::Text(a.x, a.y, Color(160, 160, 160, 255), Render::Fonts::MenuBold, Text.c_str());
 }
 
 void CLabel::SetText(std::string text)
@@ -139,13 +137,10 @@ void CGroupBox::Draw(bool hover)
 	POINT a = GetAbsolutePos();
 	RECT txtSize = Render::GetTextSize(Render::Fonts::MenuBold, Text.c_str());
 	Render::Clear(a.x + 2, a.y + 2, m_iWidth - 4, m_iHeight - 4, Color(5, 5, 5, 255));
-	Render::Text(a.x + 15, a.y - (txtSize.bottom / 2), Color(80, 80, 80, 255), Render::Fonts::MenuBold, Text.c_str());
+	Render::Text(a.x + 15, a.y - (txtSize.bottom / 2), Color(255, 255, 255, 255), Render::Fonts::MenuBold, Text.c_str());
 
-	Render::Line(a.x, a.y, a.x + 12, a.y, Color(30, 30, 30, 200));
-	Render::Line(a.x + 15 + txtSize.right + 5, a.y, a.x + m_iWidth, a.y, Color(30, 30, 30, 200));
-//	Render::Line(a.x, a.y, a.x, a.y + m_iHeight, Color(0, 150, 0, 200));
-//	Render::Line(a.x, a.y + m_iHeight, a.x + m_iWidth, a.y + m_iHeight, Color(0, 150, 0, 200));
-	//Render::Line(a.x + m_iWidth, a.y, a.x + m_iWidth, a.y + m_iHeight, Color(0, 150, 0, 200));
+	Render::Line(a.x, a.y, a.x + 12, a.y, Color(160, 160, 160, 255));
+	Render::Line(a.x + 15 + txtSize.right + 5, a.y, a.x + m_iWidth, a.y, Color(160, 160, 160, 255));
 }
 
 void CGroupBox::SetText(std::string text)
@@ -204,7 +199,7 @@ void CSlider::Draw(bool hover)
 	char buffer[24];
 	sprintf_s(buffer, "%.2f", Value);
 	RECT txtSize = Render::GetTextSize(Render::Fonts::MenuBold, buffer);
-	Render::Text(a.x + (m_iWidth / 2) - txtSize.right / 2, a.y + 10, Color(255, 255, 255, 255), Render::Fonts::MenuBold, buffer); //Value Farbe (weiß)
+	Render::Text(a.x + (m_iWidth / 2) - txtSize.right / 2, a.y + 10, Color(200, 200, 200, 255), Render::Fonts::MenuBold, buffer); //Value Farbe (weiß)
 }
 
 void CSlider::OnUpdate() {
@@ -323,7 +318,7 @@ void CKeyBind::Draw(bool hover)
 	}
 
 
-	Render::Text(a.x + 2, a.y + 2, Color(100, 100, 100, 255), Render::Fonts::MenuBold, KeyName);
+	Render::Text(a.x + 2, a.y + 2, Color(160, 160, 160, 255), Render::Fonts::MenuBold, KeyName);
 }
 
 void CKeyBind::OnUpdate() {
@@ -384,7 +379,7 @@ void CButton::Draw(bool hover)
 {
 	POINT a = GetAbsolutePos();
 	if (hover)
-		Render::GradientV(a.x + 2, a.y + 2, m_iWidth - 4, m_iHeight - 6, Color(20, 199, 20, 200), Color(20, 20, 20, 200));
+		Render::GradientV(a.x + 2, a.y + 2, m_iWidth - 4, m_iHeight - 6, Color(37, 137, 255, 255), Color(0, 83, 148, 255));
 	else
 		Render::GradientV(a.x + 2, a.y + 2, m_iWidth - 4, m_iHeight - 6, Color(20, 20, 20, 200), Color(20, 20, 20, 200));
 
@@ -392,7 +387,7 @@ void CButton::Draw(bool hover)
 	int TextX = a.x + (m_iWidth / 2) - (TextSize.left / 2);
 	int TextY = a.y + (m_iHeight / 2) - (TextSize.bottom / 2);
 
-	Render::Text(TextX, TextY, Color(80, 80, 80, 255), Render::Fonts::MenuBold, Text.c_str());
+	Render::Text(TextX, TextY, Color(255, 255, 255, 255), Render::Fonts::MenuBold, Text.c_str());
 }
 
 void CButton::SetText(std::string text)
@@ -438,7 +433,7 @@ void CComboBox::Draw(bool hover)
 	if (Items.size() > 0)
 	{
 		// The current item
-		Render::Text(a.x + 2, a.y + 2, Color(100, 100, 100, 255), Render::Fonts::MenuBold, GetItem().c_str());
+		Render::Text(a.x + 2, a.y + 2, Color(160, 160, 160, 255), Render::Fonts::MenuBold, GetItem().c_str());
 
 		// If the drop down part is open
 		if (IsOpen)
@@ -456,7 +451,7 @@ void CComboBox::Draw(bool hover)
 					Render::GradientV(a.x, a.y + 17 + i * 16, m_iWidth, 16, Color(30, 30, 30, 200), Color(40, 40, 40, 255));
 				}
 
-				Render::Text(a.x + 2, a.y + 19 + i * 16, Color(100, 100, 100, 255), Render::Fonts::MenuBold, Items[i].c_str());
+				Render::Text(a.x + 2, a.y + 19 + i * 16, Color(160, 160, 160, 255), Render::Fonts::MenuBold, Items[i].c_str());
 			}
 		}
 	}
@@ -586,7 +581,7 @@ void CTextField::Draw(bool hover)
 
 	const char *cstr = text.c_str();
 
-	Render::Text(a.x + 2, a.y + 2, Color(100, 100, 100, 255), Render::Fonts::MenuBold, cstr);
+	Render::Text(a.x + 2, a.y + 2, Color(160, 160, 160, 255), Render::Fonts::MenuBold, cstr);
 }
 
 void CTextField::OnUpdate()
@@ -681,7 +676,7 @@ void CTextField2::Draw(bool hover)
 
 	const char *cstr = text.c_str();
 
-	Render::Text(a.x + 2, a.y + 2, Color(100, 100, 100, 255), Render::Fonts::MenuBold, cstr);
+	Render::Text(a.x + 2, a.y + 2, Color(160, 160, 160, 255), Render::Fonts::MenuBold, cstr);
 }
 
 void CTextField2::OnUpdate()

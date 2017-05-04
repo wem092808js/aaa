@@ -8,7 +8,7 @@ void UTIL_TraceLine(const Vector& vecAbsStart, const Vector& vecAbsEnd, unsigned
 {
 	typedef int(__fastcall* UTIL_TraceLine_t)(const Vector&, const Vector&, unsigned int, const IClientEntity*, int, trace_t*);
 	static UTIL_TraceLine_t TraceLine = (UTIL_TraceLine_t)Utilities::Memory::FindPattern("client.dll", (PBYTE)"\x55\x8B\xEC\x83\xE4\xF0\x83\xEC\x7C\x56\x52", "xxxxxxxxxxx");
-	TraceLine(vecAbsStart, vecAbsEnd, mask, ignore, collisionGroup, ptr);
+	TraceLine(vecAbsStart, vecAbsEnd, mask, ignore, cfollisionGroup, ptr);
 }
 
 void UTIL_ClipTraceToPlayers(const Vector& vecAbsStart, const Vector& vecAbsEnd, unsigned int mask, ITraceFilter* filter, trace_t* tr)
@@ -90,39 +90,10 @@ void GameUtils::ClampViewAngle(Vector &angle)
 
 void GameUtils::CL_FixMove(CUserCmd* pCmd, Vector viewangles)
 {
-	/*pCmd->forwardmove = DotProduct(forward * vForwardNorm, aimforward) + DotProduct(right * vRightNorm, aimforward) + DotProduct(up * vUpNorm, aimforward);
-	pCmd->sidemove = DotProduct(forward * vForwardNorm, aimright) + DotProduct(right * vRightNorm, aimright) + DotProduct(up * vUpNorm, aimright);
-	pCmd->upmove = DotProduct(forward * vForwardNorm, aimup) + DotProduct(right * vRightNorm, aimup) + DotProduct(up * vUpNorm, aimup);*/
 }
-
-//char shit[16];
-//trace_t Trace;
-//char shit2[16];
-//IClientEntity* entCopy;
 
 bool GameUtils::IsVisible(IClientEntity* pLocal, IClientEntity* pEntity, int BoneID)
 {
-	//if (BoneID < 0) return false;
-
-	//entCopy = pEntity;
-	//Vector start = pLocal->GetOrigin() + pLocal->GetViewOffset();
-	//Vector end = GetHitboxPosition(pEntity, BoneID);//pEntity->GetBonePos(BoneID);
-	//char shit3[32];
-
-	////Interfaces::Trace->TraceRay(Ray,MASK_SOLID, NULL/*&filter*/, &Trace);
-	//UTIL_TraceLine(start, end, MASK_SOLID, pLocal, 0, &Trace);
-
-	//if (Trace.m_pEnt == entCopy)
-	//{
-	//	return true;
-	//}
-
-	//if (Trace.fraction == 1.0f)
-	//{
-	//	return true;
-	//}
-
-	//return false;
 	auto LocalPlayer = Interfaces::EntList->GetClientEntity(Interfaces::Engine->GetLocalPlayer());
 
 	Ray_t Ray;

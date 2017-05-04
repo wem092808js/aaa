@@ -23,33 +23,6 @@ void CMiscHacks::Move(CUserCmd *pCmd, bool& bSendPacket)
 {
 	static ConVar* nameConvar = Interfaces::CVar->FindVar("name");
 	static int Times = 250;
-
-	if (Menu::Window.MiscTab.OtherAimware.GetState()) {
-		std::string text = "";
-		static bool useSpace = false;
-		text = useSpace ? "™AIMWARE.NET " : "™AIMWARE.NET";
-		NET_SetConVar noob("name", text.c_str());
-		Interfaces::Engine->GetNetChannelInfo()->SendNetMsg(noob);
-		useSpace = !useSpace;
-	}
-	if (Menu::Window.MiscTab.OtherInterwebz.GetState()) {
-		std::string text = "";
-		static bool useSpace = false;
-		text = useSpace ? "-INTERWEBZ " : "INTERWEBZ-";
-		NET_SetConVar noob("name", text.c_str());
-		Interfaces::Engine->GetNetChannelInfo()->SendNetMsg(noob);
-		useSpace = !useSpace;
-	}
-	if (Menu::Window.MiscTab.Othernamesteal.GetState()) {
-		std::string text = "";
-		static bool useSpace = false;
-		text = useSpace ? "tytto.priv" : "tytto.priv";
-		NET_SetConVar noob("name", text.c_str());
-		Interfaces::Engine->GetNetChannelInfo()->SendNetMsg(noob);
-		useSpace = !useSpace;
-	}
-	// Any Move Stuff
-
 	// Clan Changer
 	switch (Menu::Window.MiscTab.ClanTag.GetIndex())
 	{
@@ -73,9 +46,6 @@ void CMiscHacks::Move(CUserCmd *pCmd, bool& bSendPacket)
 	// Bhop
 	if (Menu::Window.MiscTab.OtherBunnyhop.GetState())
 		AutoJump(pCmd);
-
-	if (Menu::Window.MiscTab.OtherTeleportHack.GetState())
-		TeleportHack(pCmd);
 
 	// Strafe
 	Interfaces::Engine->GetViewAngles(AutoStrafeView);

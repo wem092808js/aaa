@@ -94,6 +94,7 @@ int InitialThread(LPVOID lpArguments)
 	Hacks::SetupHacks();
 	Menu::SetupMenu();
 	Hooks::Initialise();
+	ApplyAAAHooks();
 	//AntiLeak->ErasePE();
 
 	//get the current process' name, and exit if it is the target process

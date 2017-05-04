@@ -535,6 +535,15 @@ public:
 		return call_vfunc< oGetSpread>(this, Offsets::VMT::Weapon_GetSpread)(this);
 	}
 
+	float hitchance()
+	{
+		float inaccuracy = GetInaccuracy();
+		if (inaccuracy == 0)
+			inaccuracy = 0.0000001;
+		inaccuracy = 1 / inaccuracy;
+		return inaccuracy;
+	}
+
 	float GetAccuracyPenalty()
 	{
 		return *(float*)((DWORD)this + 0x32B0);
@@ -563,26 +572,6 @@ public:
 	int GetWeaponID2() {
 		return *(int*)((DWORD)this + 0x00002F88);
 	}
-
-	/*CSWeaponInfo* GetCSWpnData()
-	{
-		static DWORD GetCSWpnDataAddr = Utilities::Memory::FindPattern("client.dll", (PBYTE)"\x55\x8B\xEC\x81\xEC\x00\x00\x00\x00\xB8\x00\x00\x00\x00\x57", "xxxxx????x????x");
-		if (GetCSWpnDataAddr)
-		{
-			CSWeaponInfo* retData;
-			__asm
-			{
-				mov ecx, this
-				call GetCSWpnDataAddr
-					mov retData, eax
-			}
-			return retData;
-		}
-		else
-		{
-			return nullptr;
-		}
-	}*/
 };
 
 class CCSBomb

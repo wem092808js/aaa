@@ -1088,7 +1088,7 @@ void CRageBot::DoAntiAim(CUserCmd *pCmd, bool& bSendPacket)
 	if (!(Menu::Window.RageBotTab.AimbotSilentAim.GetState()))
 		if (pCmd->buttons & IN_ATTACK)
 			return;
-
+	
 	// Anti-Aim Pitch
 	switch (Menu::Window.RageBotTab.AntiAimPitch.GetIndex())
 	{
@@ -1405,7 +1405,7 @@ void CRageBot::DoFakeYaw(CUserCmd *pCmd, bool& bSendPacket)
 	case 9:{
 		// Custom Yaw
 		Vector OriginalY = pCmd->viewangles;
-		pCmd->viewangles.y = OriginalY.y + Menu::Window.RageBotTab.AntiAimRealYawC.GetValue();
+		pCmd->viewangles.y = OriginalY.y + Menu::Window.RageBotTab.AntiAimFakeYawC.GetValue();
 		break;
 		   }
 	}

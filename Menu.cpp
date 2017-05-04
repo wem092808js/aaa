@@ -322,10 +322,10 @@ void CRageBotTab::Setup()
 	AntiAimRealYawC.SetValue(0.f);
 	AntiAimGroup.PlaceLabledControl("Real Yaw Angle", this, &AntiAimRealYawC);
 
-	AntiAimRealYawC.SetFileId("aa_ryc");
-	AntiAimRealYawC.SetBoundaries(-180.f, 180.f);
-	AntiAimRealYawC.SetValue(0.f);
-	AntiAimGroup.PlaceLabledControl("Fake Yaw Angle", this, &AntiAimRealYawC);
+	AntiAimFakeYawC.SetFileId("aa_fyc");
+	AntiAimFakeYawC.SetBoundaries(-180.f, 180.f);
+	AntiAimFakeYawC.SetValue(0.f);
+	AntiAimGroup.PlaceLabledControl("Fake Yaw Angle", this, &AntiAimFakeYawC);
 
 	EdgeAntiAim.SetFileId("aa_edge");
 	AntiAimGroup.PlaceLabledControl("Edge", this, &EdgeAntiAim);

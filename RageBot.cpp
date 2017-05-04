@@ -1089,6 +1089,9 @@ void CRageBot::DoAntiAim(CUserCmd *pCmd, bool& bSendPacket)
 		if (pCmd->buttons & IN_ATTACK)
 			return;
 	
+	if (hackManager.pLocal()->GetMoveType == 9 || hackManager.pLocal()->GetMoveType == 8)
+		return;
+	
 	// Anti-Aim Pitch
 	switch (Menu::Window.RageBotTab.AntiAimPitch.GetIndex())
 	{

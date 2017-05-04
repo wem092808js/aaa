@@ -700,6 +700,7 @@ public:
 	CNETVAR_FUNC(int, GetTeamNum, 0xC08B6C6E); //m_iTeamNum
 	CNETVAR_FUNC(int, GetMaxHealth, 0xC52E1C28); //m_iMaxHealth
 	CNETVAR_FUNC(int, GetHealth, 0xA93054E3); //m_iHealth
+	CNETVAR_FUNC(int, GetMoveType, 0x644C4CF0); //m_moveType
 	CNETVAR_FUNC(unsigned char, GetLifeState, 0xD795CCFC); //m_lifeState
 	CNETVAR_FUNC(HANDLE, GetActiveWeaponHandle, 0xB4FECDA3); //m_hActiveWeapon
 	CNETVAR_FUNC(int, GetTickBase, 0xD472B079); //m_nTickBase

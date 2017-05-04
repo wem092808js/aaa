@@ -1312,10 +1312,10 @@ void CRageBot::DoAntiAim(CUserCmd *pCmd, bool& bSendPacket)
 		if (ChokedPackets < 1)
 		{
 			Vector OriginalY = pCmd->viewangles;
-			if (Menu::Window.RageBotTab.AntiAimRealYaw.GetIndex() != Menu::Window.RageBotTab.AntiAimFakeYaw.GetIndex()) { bSendPacket = false; }
+			if (Menu::Window.RageBotTab.AntiAimFakeYaw.GetIndex() != 0) { bSendPacket = false; }
 			pCmd->viewangles.y = OriginalY.y + Menu::Window.RageBotTab.AntiAimRealYawC.GetValue();
 		}
-		else if (Menu::Window.RageBotTab.AntiAimRealYaw.GetIndex() != Menu::Window.RageBotTab.AntiAimFakeYaw.GetIndex())
+		else if (Menu::Window.RageBotTab.AntiAimFakeYaw.GetIndex() != 0)
 		{
 			bSendPacket = true;
 			DoFakeYaw(pCmd, bSendPacket);

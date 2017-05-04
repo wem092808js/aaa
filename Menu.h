@@ -23,8 +23,6 @@ public:
 	CCheckBox AimbotAimStep;
 	CCheckBox AimbotKeyPress;
 	CKeyBind  AimbotKeyBind;
-	CCheckBox AntiSpawnProtection;
-
 
 	// Target Selection Settings
 	CGroupBox TargetGroup;

@@ -172,9 +172,6 @@ void CRageBotTab::Setup()
 	AimbotKeyBind.SetFileId("aim_key");
 	AimbotGroup.PlaceLabledControl("Key", this, &AimbotKeyBind);
 	
-	AntiSpawnProtection.SetFileId("aim_antispawnprotection");
-	AimbotGroup.PlaceLabledControl("Anti Spawn Protection", this, &AntiSpawnProtection);
-
 	AccuracyRecoil.SetFileId("acc_norecoil");
 	AimbotGroup.PlaceLabledControl("No Recoil", this, &AccuracyRecoil);
 
